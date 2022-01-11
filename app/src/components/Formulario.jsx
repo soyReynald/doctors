@@ -2,9 +2,9 @@ import React from 'react'
 
 const Formulario = () => {
     return (
-        <h1>
-           Desde Formulario 
-        </h1>
+        <div>
+            <h2>Formulario</h2>
+        </div>
     )
 }
 
