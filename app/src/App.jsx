@@ -6,9 +6,11 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Formulario />
-      <ListadoPacientes />
+      <div className="container mx-auto pt-20">
+        <Header />
+        <Formulario />
+        <ListadoPacientes />
+      </div>
     </>
   )
 }
