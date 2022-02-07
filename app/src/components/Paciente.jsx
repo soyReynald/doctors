@@ -28,7 +28,7 @@ const Paciente = ({ nombre, propietario, email, fecha, sintomas }) => {
         <span className="font-normal normal-case">{sintomas}</span>
       </p>
 
-      <div className="options ml-2 mt-5 ">
+      <div className="options ml-2 mt-5">
         <button
           className="text-center bg-indigo-900 font-bold text-white px-3 py-2 rounded-xl hover:bg-indigo-600"
           type="button"
