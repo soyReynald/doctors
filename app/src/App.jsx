@@ -7,6 +7,12 @@ function App() {
     const [pacientes, setPacientes] = useState([]);
     const [paciente, setPaciente] = useState({});
 
+
+    const eliminarPaciente = id => {
+        setPacientes(pacientes.filter(pac => pac.id !== id));
+        localStorage.setItem('pacientes', JSON.stringify(pacientes.filter(pac => pac.id !== id)));
+    }
+
     return (
         <>
             <div className="container mx-auto pt-20">
@@ -21,6 +27,7 @@ function App() {
                     <ListadoPacientes
                         pacientes={pacientes}
                         setPaciente={setPaciente}
+                        eliminarPaciente={eliminarPaciente}
                     />
                 </div>
             </div>

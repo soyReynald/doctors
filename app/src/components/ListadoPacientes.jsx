@@ -1,7 +1,7 @@
 import React from "react";
 import Paciente from "./Paciente";
 
-const ListadoPacientes = ({ pacientes, setPaciente }) => {
+const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
     const generatedKey = () =>
         Math.random().toString(36).substring(2) + Date.now().toString(36);
 
@@ -22,6 +22,7 @@ const ListadoPacientes = ({ pacientes, setPaciente }) => {
                         paciente={paciente}
                         key={`paciente-` + idx + `-${generatedKey()}`}
                         setPaciente={setPaciente}
+                        eliminarPaciente={eliminarPaciente}
                     />
                 ))}
             </div>
