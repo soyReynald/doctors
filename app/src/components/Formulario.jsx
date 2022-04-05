@@ -9,6 +9,19 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
     const [fecha, setFecha] = useState("");
     const [sintomas, setSintomas] = useState("");
 
+
+    const resetForm = () => {
+        setNombre("");
+        setPropietario("");
+        setEmail("");
+        setFecha("");
+        setSintomas("");
+    }
+
+    const generateUniqueId = () => {
+        return Math.random().toString(36).substring(2) + Date.now().toString(36);
+    }
+
     // Flow states
     const [error, setError] = useState(false);
 
@@ -21,19 +34,44 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
         setError(false);
 
         // Create new paciente object
-        const newPaciente = {
+        const pacienteObj = {
             nombre,
             propietario,
             email,
             fecha,
-            sintomas,
+            sintomas
         };
 
+        if(paciente.id){
+            // Update paciente
+            pacienteObj.id = paciente.id
+            setPacientes(pacientes.map(pac => pac.id === paciente.id ? pacienteObj : pac));
+
+            // Reset paciente
+            return resetForm()
+        } 
+        
+        pacienteObj.id =  generateUniqueId();
         // Add new paciente to the list
-        setPacientes([...pacientes, newPaciente]);
+        setPacientes([...pacientes, pacienteObj]);
+        // Reset paciente
+        return resetForm()
     };
 
     // Functionality
+    useEffect(() => {
+        const getPacientes = () => {
+            if (localStorage.getItem("pacientes")) {
+                setPacientes(JSON.parse(localStorage.getItem("pacientes")));
+            }
+        }
+        getPacientes()
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem("pacientes", JSON.stringify(pacientes ?? []));
+    }, [pacientes])
+
     useEffect(() => {
         if (Object.keys(paciente).length > 0) {
             setNombre(paciente.nombre);
@@ -147,7 +185,7 @@ const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
                 <input
                     type="submit"
                     className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-                    value="Agregar Paciente"
+                    value={paciente.id ? "Editar Paciente" : "Agregar Paciente"}
                 />
             </form>
         </div>
